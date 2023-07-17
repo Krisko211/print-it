@@ -18,98 +18,40 @@ const slides = [
 ]
 //--------- variables ----------//
 
-// initialise for global scope //
-let shiftDirection = null;
-
-// copy slides for work on copy //
-let slidesToShow = Array.from(slides);
-
 // initialize slideNumber //
-let slideNumber = 1;
+let slideNumber = 0;
 
-//-------  Generate DOM elements  -------//
-const divBanner = document.querySelector("#banner");
+//-------  Get DOM elements  -------//
+const banner = document.querySelector("#banner");
+const arrows = document.querySelectorAll(".arrow");
+const bannerImg = document.querySelector(".banner-img");
+const dots = document.querySelector(".dots");
 
-//-------  banner arrows  -------//
-const divArrow = document.createElement("div");
+// create dot element for each slide
+for (let i = 0; i < slides.length; i++) {
 
-divArrow.setAttribute("class", "arrow");
+	let dot = document.createElement("div");
 
-//--------  left arrow  -------//
-const leftArrow = document.createElement("img");
-leftArrow.setAttribute("class", "arrow_left");
-leftArrow.src = "./assets/images/arrow_left.png";
-
-//--------  right arrow  -------//
-const rightArrow = document.createElement("img");
-rightArrow.setAttribute("class", "arrow_right");
-rightArrow.src = "./assets/images/arrow_right.png";
-
-//----------- banner img ------------//
-
-const bannerImg = document.createElement("img");
-
-bannerImg.src = `./assets/images/slideshow/${slidesToShow[0].image}`;
-
-bannerImg.setAttribute("class", "banner-img");
-bannerImg.setAttribute("alt", `slide-picture-${slideNumber}`);
-
-//--------  banner-tagline  ----------//
-
-const bannerTagLine = document.createElement("p");
-
-bannerTagLine.innerHTML = slidesToShow[0].tagLine;
-
-//---------  banner-dots  ------------//
-
-const divDots = document.createElement("div");
-divDots.setAttribute("class", "dots");
-
-divBanner.innerHTML = "";
-
-divBanner.appendChild(divArrow);
-divArrow.appendChild(leftArrow);
-divArrow.appendChild(rightArrow);
-divBanner.appendChild(bannerImg);
-divBanner.appendChild(bannerTagLine);
-divBanner.appendChild(divDots);
-
-
-
-for (let i = 0; i < slidesToShow.length; i++) {
-
-	let divDot = document.createElement("div");
-
-	divDots.appendChild(divDot);
-
-	divDot.setAttribute("class", "dot");
+	dot.setAttribute("class", "dot");
 
 	if (i === 0) {
-		divDot.classList.add("dot_active");
+		dot.classList.add("dot_selected");
+	}
+
+	dots.appendChild(dot);
+}
+
+// function for adding listener on arrow for change image
+function initArrowListener() {
+	/*addEventListener("", (e) =>{
+		const declencheur = e.target
+		const side = declencheur.dataset.side
+	})*/
+
+	for (const arrow of arrows) {
+		
 	}
 }
-//-------  function "shift and show"  -------//
-
-/**
-  @param {string} shiftDirection 
-  @param {array} arrayToShift 
- */
-
-function shiftAndShow(shiftDirection, arrayToShift) {
-
-	if (shiftDirection === "left") {
-		arrayToShift.unshift(arrayToShift.pop());
-	}
-	if (shiftDirection === "right") {
-
-		arrayToShift.push(arrayToShift.shift());
-	}
-
-	bannerImg.src = `./assets/images/slideshow/${arrayToShift[0].image}`;
-	//change alt img attribute according to slide number
-	bannerImg.setAttribute("alt", `slide-picture-${slideNumber}`);
-	//change banner tagline according to list
-	bannerTagLine.innerHTML = arrayToShift[0].tagLine;
-}
+//initArrowListener()
 //----- function "active Dot" -----//
 
