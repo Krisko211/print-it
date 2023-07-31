@@ -25,6 +25,7 @@ let slideNumber = 0;
 const banner = document.querySelector("#banner");
 const arrows = document.querySelectorAll(".arrow");
 const bannerImg = document.querySelector(".banner-img");
+const tagLine = banner.querySelector("#banner p");
 const dots = document.querySelector(".dots");
 
 // create dot element for each slide
@@ -40,18 +41,33 @@ for (let i = 0; i < slides.length; i++) {
 
 	dots.appendChild(dot);
 }
-
 // function for adding listener on arrow for change image
 function initArrowListener() {
-	/*addEventListener("", (e) =>{
-		const declencheur = e.target
-		const side = declencheur.dataset.side
-	})*/
-
 	for (const arrow of arrows) {
-		
+		arrow.addEventListener("click", (e) => {
+			const direction = e.target.dataset.side;
+			if (direction === "left") {
+				slideNumber--;
+				if (slideNumber < 0) {
+					slideNumber = slides.length - 1;
+				}
+			} else if (direction === "right") {
+				slideNumber++;
+				if (slideNumber > slides.length - 1) {
+					slideNumber = 0;
+				}
+			}
+			updateBanner();
+		});
 	}
 }
-//initArrowListener()
-//----- function "active Dot" -----//
+// function to update banner slide
+function updateBanner() {
+	bannerImg.src = `./assets/images/slideshow/${slides[slideNumber].image}`;
+	tagLine.innerHTML = slides[slideNumber].tagLine;
+	document.querySelector(".dot_selected").classList.remove("dot_selected")
+	dots[slideNumber].classList.add("dot_selected");
+}
 
+// add listener on arrows
+initArrowListener();
