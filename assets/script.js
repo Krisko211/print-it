@@ -30,7 +30,7 @@ const bannerImg = document.querySelector(".banner-img");
 const tagLine = banner.querySelector("#banner p");
 const dots = document.querySelector(".dots");
 
-// create dot element for each slide
+// create dot element for each slide // Boucle
 
 for (let i = 0; i < slides.length; i++) {
 
